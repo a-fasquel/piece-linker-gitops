@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: piece-linker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: piece-linker
+  template:
+    metadata:
+      labels:
+        app: piece-linker
+    spec:
+      containers:
+        - name: piece-linker-container
+          image: afasquel/piece-linker:latest
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "500Mi"
+            limits:
+              cpu: "500m"
+              memory: "100Mi"

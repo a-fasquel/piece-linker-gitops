@@ -1,0 +1,35 @@
+resources:
+  - ../../base
+
+images:
+  - name: your-image-name
+    newTag: ${IMAGE_TAG}
+
+configMapGenerator:
+  - name: app-params
+    literals:
+      - cpuRequest=${CPU_REQUEST}
+      - cpuLimit=${CPU_LIMIT}
+
+vars:
+  - name: IMAGE_TAG
+    objref:
+      kind: ConfigMap
+      name: app-params
+      apiVersion: v1
+      fieldref:
+        fieldpath: metadata.annotations['imageTag']
+  - name: CPU_REQUEST
+    objref:
+      kind: ConfigMap
+      name: app-params
+      apiVersion: v1
+      fieldref:
+        fieldpath: metadata.annotations['cpuRequest']
+  - name: CPU_LIMIT
+    objref:
+      kind: ConfigMap
+      name: app-params
+      apiVersion: v1
+      fieldref:
+        fieldpath: metadata.annotations['cpuLimit']
